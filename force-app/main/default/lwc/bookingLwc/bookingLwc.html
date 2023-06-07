@@ -1,0 +1,42 @@
+<template>
+    <c-reusable-lookup label="Customer" selected-icon-name="standard:account" object-label="Account"
+        object-api-name="Account" field-api-name="Name" other-field-api-name="Industry" 
+        onvalueselected={handleValueSelectedOnCustomer}>
+    </c-reusable-lookup>
+    <c-reusable-lookup label="Agent" selected-icon-name="standard:avatar" object-label="Agent" 
+    status="Active"
+        object-api-name="Agent__c" field-api-name="Agent_name__c" other-field-api-name="Name" 
+        onvalueselected={handleValueSelectedOnAgent}>
+    </c-reusable-lookup>
+    <template lwc:if={agentSelectedRecord}>
+        <c-reusable-lookup label="Appointment" selected-icon-name="standard:date_time" object-label="Appointment Name"
+            depency-parent-field-api-name ="Agent__c" depency-parent-value={agentSelectedRecord.Id} status="Available"
+            object-api-name="Appointment_Name__c" field-api-name="Name" other-field-api-name="Agent__c"
+            onvalueselected={handleValueSelectedOnAppointment}>
+        </c-reusable-lookup>
+    </template>
+    <div class="slds-m-top_medium slds-m-bottom_x-large">
+        <h4 class="slds-text-heading_medium slds-m-bottom_medium">
+            <code>Communication method : </code>{communicationMethodsSelected}
+        </h4>
+
+        <!-- with border filled -->
+        <div class="slds-p-around_medium lgc-bg">
+            <lightning-button label="Face to Face" icon-name="utility:people" title="Face to Face" onclick={handleCommunicationClick} class="slds-m-left_x-small"></lightning-button>
+            <lightning-button label="Phone" icon-name="utility:call" title="Phone" onclick={handleCommunicationClick} class="slds-m-left_x-small"></lightning-button>
+            <lightning-button label="What's App	" icon-name="standard:live_chat"  title="What's App" onclick={handleCommunicationClick} class="slds-m-left_x-small"></lightning-button>
+            <lightning-button label="Zoom" icon-name="standard:live_chat_visitor"  title="Zoom" onclick={handleCommunicationClick} class="slds-m-left_x-small"></lightning-button>
+
+        </div>
+    </div>
+    <!-- <c-reusable-lookup label="Communication method" selected-icon-name="standard:call" object-label="Appointment Name"
+        object-api-name="Appointment_Name__c" field-api-name="Communication_method__c" other-field-api-name="Name"
+        onvalueselected={handleValueSelectedOnCommunication}>
+    </c-reusable-lookup> -->
+     <!-- Neutral variant (default) -->
+     <div class="slds-m-vertical_medium">
+        <h1 class="slds-text-heading_small">{result}</h1>
+    </div>
+     <lightning-button  variant="brand" label="Book Appointment" title="Non-primary action" onclick={handleBookingClick} class="slds-m-left_x-small"></lightning-button>
+
+</template>
